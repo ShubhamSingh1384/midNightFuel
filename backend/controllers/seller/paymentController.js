@@ -73,7 +73,7 @@ const paymentVerification = async (req, res) => {
     }
   } catch (error) {
     // console.error("Payment verification error:", error);
-    return res.redirect(`${process.env.UI_URL}/auth`)
+    return res.redirect(`https://mid-night-fuel-phi.vercel.app/auth`)
     // res.status(500).json({
     //   success: false,
     //   message: "Server error during payment verification",
