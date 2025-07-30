@@ -72,11 +72,12 @@ const paymentVerification = async (req, res) => {
       });
     }
   } catch (error) {
-    console.error("Payment verification error:", error);
-    res.status(500).json({
-      success: false,
-      message: "Server error during payment verification",
-    });
+    // console.error("Payment verification error:", error);
+    return res.redirect(`${process.env.UI_URL}/auth`)
+    // res.status(500).json({
+    //   success: false,
+    //   message: "Server error during payment verification",
+    // });
   }
 };
 
