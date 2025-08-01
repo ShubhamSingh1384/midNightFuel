@@ -52,7 +52,7 @@ const Auth = () => {
 
     // Merge email prefix + fixed domain
     const mergedEmail = formData.email.trim();
-    let updateNumber = formData.phone;
+    let updateNumber = formData.phone.trim();
     if(updateNumber.length == 10){
       updateNumber = "+91" + updateNumber
     }
@@ -61,7 +61,7 @@ const Auth = () => {
     const payload = {
       ...formData,
       email: mergedEmail,
-      phone: updateNumber
+      phone: updateNumber,
     };
 
     if (isLogin) {
@@ -138,7 +138,7 @@ const Auth = () => {
   const handleVerify_Signup = () => {
     // Merge email prefix + fixed domain
     const mergedEmail = formData.email.trim();
-    let phoneUpdate = formData.phone;
+    let phoneUpdate = formData.phone.trim();
     if(phoneUpdate.length == 10){
       phoneUpdate = "+91" + phoneUpdate;
     }
@@ -146,7 +146,7 @@ const Auth = () => {
     const payload = {
       ...formData,
       email: mergedEmail,
-      phone: phoneUpdate
+      phone: phoneUpdate,
     };
     const fullOtp = otp.join("");
     if (fullOtp.length === 4) {

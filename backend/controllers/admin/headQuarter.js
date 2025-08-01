@@ -1,5 +1,6 @@
 const Seller = require('../../model/sellerModel')
-const User = require('../../model/userModel')
+const User = require('../../model/userModel');
+const { sendSellerVerifiedMail, sendSellerRejectMail } = require('../seller/emailController');
 
 
 const getSeller = async(req, res)=>{
@@ -99,7 +100,11 @@ const verifySeller = async(req, res)=>{
             })
         }
         existSeller.varified = true;
+        console.log(existSeller);
         await existSeller.save();
+
+        await sendSellerVerifiedMail(existSeller.email, existSeller.name)
+
         res.status(200).json({
             message: "Seller verified",
             success: true,
@@ -119,7 +124,7 @@ const verifySeller = async(req, res)=>{
 const rejectSeller = async(req, res)=>{
     try {
         const {sellerId} = req.params;
-        const existSeller = await Seller.deleteOne({_id : sellerId});
+        const existSeller = await Seller.findOne({_id : sellerId});
         if(!existSeller){
             return res.status(200).json({
                 message: "Seller not found",
@@ -127,7 +132,10 @@ const rejectSeller = async(req, res)=>{
                 data:[]
             })
         }
-        
+
+        // console.log("from the reject part", existSeller);
+        await sendSellerRejectMail(existSeller.email, existSeller.name);
+        await Seller.deleteOne({_id : sellerId})
         return res.status(200).json({
             message: "Seller rejected",
             success: true,
